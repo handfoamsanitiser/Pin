@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include "raymath.h"
 #include <vector>
 #include "constants.hpp"
 #include "player.hpp"
@@ -49,17 +50,20 @@ int main() {
 
 void UpdateDrawFrame() {
     player.Update();
-    camera.target = player.GetPos();
+    
+    Vector2 mousePosFromCentre = { GetMousePosition().x - screenWidth / 2, GetMousePosition().y - screenHeight / 2 };
+    mousePosFromCentre = Vector2Scale(mousePosFromCentre, 0.2f);
+    camera.target = Vector2Add(player.GetPos(), mousePosFromCentre);
 
     BeginDrawing();
         ClearBackground(RAYWHITE);
 
         BeginMode2D(camera);
-            player.Render();
-
             for (Wall wall : walls) {
                 wall.Render();
             }
+
+            player.Render();
         EndMode2D();
     EndDrawing();
 }
