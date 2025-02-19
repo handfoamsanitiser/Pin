@@ -34,7 +34,7 @@ void Player::Update() {
 }
 
 void Player::Render() {
-    DrawCircle(pos.x, pos.y, 20, RED);
+    DrawRectangleV(pos, Vector2 { 40.0f, 40.0f }, RED);
 }
 
 Vector2 Player::GetPos() {
