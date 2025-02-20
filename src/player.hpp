@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include "aabb.hpp"
 
 class Player {
 public:
@@ -9,11 +10,12 @@ public:
     void Update();
     void Render();
 
+    AABB *GetAABB();
     Vector2 GetPos();
     Vector2 GetVel();
 
 private:
-    Vector2 pos;
+    AABB aabb;
     Vector2 vel;
     float speed;
 };

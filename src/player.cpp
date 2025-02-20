@@ -2,11 +2,11 @@
 #include "raylib.h"
 #include "raymath.h"
 
-Player::Player(): pos(Vector2 { 0.0, 0.0 }), vel(Vector2 { 0.0, 0.0 }), speed(250.0) {}
+Player::Player(): aabb(AABB(1.0f, 0.0f, 40.0f, 40.0f)), vel(Vector2 { 0.0, 0.0 }), speed(250.0) {}
 
 void Player::Reset(float x, float y) {
-    pos.x = x;
-    pos.y = y;
+    aabb.SetPosX(x);
+    aabb.SetPosY(y);
 }
 
 void Player::Update() {
@@ -29,16 +29,20 @@ void Player::Update() {
     vel.x *= speed;
     vel.y *= speed;
 
-    pos.x += vel.x * GetFrameTime();
-    pos.y += vel.y *= GetFrameTime();
+    aabb.SetPosX(aabb.GetPos().x + vel.x * GetFrameTime());
+    aabb.SetPosY(aabb.GetPos().y + vel.y * GetFrameTime());
 }
 
 void Player::Render() {
-    DrawRectangleV(pos, Vector2 { 40.0f, 40.0f }, RED);
+    DrawRectangleV(aabb.GetPos(), aabb.GetSize(), RED);
+}
+
+AABB *Player::GetAABB() {
+    return &aabb;
 }
 
 Vector2 Player::GetPos() {
-    return pos;
+    return aabb.GetPos();
 }
 
 Vector2 Player::GetVel() {

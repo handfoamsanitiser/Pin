@@ -4,8 +4,8 @@ constexpr int screenHeight = 800;
 /*
     TODO list:
         - simple aabb collision:
-            - detection - DOING
-            - resolution - DOING
+            - detection - DONE
+            - resolution - DONE
 
         - main menu:
             - play game

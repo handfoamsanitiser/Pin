@@ -8,6 +8,7 @@ public:
 
     void Render();
 
+    AABB GetAABB();
     Vector2 GetPos();
     Vector2 GetSize();
 

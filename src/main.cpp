@@ -30,9 +30,9 @@ int main() {
     // wall initialisation
     walls.push_back(Wall(100, 100, 50, 50));
     walls.push_back(Wall(350, 250, 50, 50));
-    walls.push_back(Wall(0, 100, 50, 50));
-    walls.push_back(Wall(100, 0, 50, 50));
-    walls.push_back(Wall(600, 600, 50, 50));
+    //walls.push_back(Wall(0, 100, 50, 50));
+    //walls.push_back(Wall(100, 0, 50, 50));
+    //walls.push_back(Wall(600, 600, 50, 50));
 
     #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
@@ -50,7 +50,10 @@ int main() {
 
 void UpdateDrawFrame() {
     player.Update();
-    
+    for (Wall wall: walls) {
+        player.GetAABB()->ResolveCollision(wall.GetAABB());
+    }
+
     Vector2 mousePosFromCentre = { GetMousePosition().x - screenWidth / 2, GetMousePosition().y - screenHeight / 2 };
     mousePosFromCentre = Vector2Scale(mousePosFromCentre, 0.2f);
     camera.target = Vector2Add(player.GetPos(), mousePosFromCentre);
@@ -59,7 +62,7 @@ void UpdateDrawFrame() {
         ClearBackground(RAYWHITE);
 
         BeginMode2D(camera);
-            for (Wall wall : walls) {
+            for (Wall wall: walls) {
                 wall.Render();
             }
 

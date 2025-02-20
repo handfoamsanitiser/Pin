@@ -7,6 +7,10 @@ void Wall::Render() {
     DrawRectangle(aabb.GetPos().x, aabb.GetPos().y, aabb.GetSize().x, aabb.GetSize().y, GRAY);
 }
 
+AABB Wall::GetAABB() {
+    return aabb;
+}
+
 Vector2 Wall::GetPos() {
     return aabb.GetPos();
 }

@@ -14,6 +14,9 @@ public:
     Vector2 GetPos();
     Vector2 GetSize();
 
+    void SetPosX(float x);
+    void SetPosY(float y);
+
 private:
     Rectangle rect;
 };
