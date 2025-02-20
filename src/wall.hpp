@@ -1,5 +1,6 @@
 #pragma once
 #include "raylib.h"
+#include "aabb.hpp"
 
 class Wall {
 public:
@@ -11,6 +12,5 @@ public:
     Vector2 GetSize();
 
 private:
-    Vector2 pos;
-    Vector2 size;
+    AABB aabb;
 };

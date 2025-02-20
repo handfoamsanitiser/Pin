@@ -1,16 +1,16 @@
 #include "wall.hpp"
 #include "raylib.h"
 
-Wall::Wall(float x, float y, float w, float h): pos(Vector2 { x, y }), size(Vector2 { w, h }) {}
+Wall::Wall(float x, float y, float w, float h): aabb(AABB(x, y, w, h)) {}
 
 void Wall::Render() {
-    DrawRectangle(pos.x, pos.y, size.x, size.y, GRAY);
+    DrawRectangle(aabb.GetPos().x, aabb.GetPos().y, aabb.GetSize().x, aabb.GetSize().y, GRAY);
 }
 
 Vector2 Wall::GetPos() {
-    return pos;
+    return aabb.GetPos();
 }
 
 Vector2 Wall::GetSize() {
-    return size;
+    return aabb.GetSize();
 }
