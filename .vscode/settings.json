@@ -11,6 +11,7 @@
 	"files.associations": {
 		"*.m": "cpp",
 		"cstdlib": "cpp",
-		"format": "cpp"
+		"format": "cpp",
+		"random": "cpp"
 	}
 }

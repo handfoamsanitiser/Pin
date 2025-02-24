@@ -21,11 +21,17 @@ int main() {
     InitWindow(screenWidth, screenHeight, "Explorer");
     InitAudioDevice();
 
+    // texture initialisation
+    player.LoadTextures();
+
     // camera initialisation
     camera.target = player.GetPos();
     camera.offset = Vector2 { screenWidth / 2, screenHeight / 2 };
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
+
+    // audio initialisation
+    Player::LoadSounds();
 
     // wall initialisation
     walls.push_back(Wall(100, 100, 50, 50));
@@ -44,6 +50,7 @@ int main() {
     }
     #endif
     
+    Player::UnloadSounds();
     CloseAudioDevice();
     CloseWindow();
 }
