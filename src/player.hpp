@@ -2,6 +2,8 @@
 #include "raylib.h"
 #include "aabb.hpp"
 
+extern Sound callSounds[9];
+
 class Player {
 public:
     Player();
@@ -33,5 +35,3 @@ private:
     Rectangle source;
     Rectangle dest;
 };
-
-extern Sound callSounds[2];

@@ -7,6 +7,8 @@
 #define PLAYER_COL_SIZE 80.0f
 #define PLAYER_COL_OFFSET (PLAYER_SIZE - PLAYER_COL_SIZE) / 2.0f
 
+Sound callSounds[9];
+
 Player::Player(): 
     aabb(AABB(0, 0, PLAYER_COL_SIZE, PLAYER_COL_SIZE)), 
     vel(Vector2 { 0, 0 }), 
@@ -95,15 +97,23 @@ Rectangle Player::GetTextureDest() {
 void Player::LoadSounds() {
     callSounds[0] = LoadSound("resources/audio/pin-0.ogg");
     callSounds[1] = LoadSound("resources/audio/pin-1.ogg");
+    callSounds[2] = LoadSound("resources/audio/pin-2.ogg");
+    callSounds[3] = LoadSound("resources/audio/pin-3.ogg");
+    callSounds[4] = LoadSound("resources/audio/pin-4.ogg");
+    callSounds[5] = LoadSound("resources/audio/pin-5.ogg");
+    callSounds[6] = LoadSound("resources/audio/pin-6.ogg");
+    callSounds[7] = LoadSound("resources/audio/pin-7.ogg");
+    callSounds[8] = LoadSound("resources/audio/pin-8.ogg");
 }
 
 void Player::UnloadSounds() {
-    UnloadSound(callSounds[0]);
-    UnloadSound(callSounds[1]);
+    for (Sound sound: callSounds) {
+        UnloadSound(sound);
+    }
 }
 
 void Player::PlayRandomCall() {
-    int random = rand() % 2;
+    int random = rand() % 9;
     switch (random) {
         case 0:
             PlaySound(callSounds[0]);
@@ -111,9 +121,28 @@ void Player::PlayRandomCall() {
         case 1:
             PlaySound(callSounds[1]);
             break;
+        case 2:
+            PlaySound(callSounds[2]);
+            break;
+        case 3:
+            PlaySound(callSounds[3]);
+            break;
+        case 4:
+            PlaySound(callSounds[4]);
+            break;
+        case 5:
+            PlaySound(callSounds[5]);
+            break;
+        case 6:
+            PlaySound(callSounds[6]);
+            break;
+        case 7:
+            PlaySound(callSounds[7]);
+            break;
+        case 8:
+            PlaySound(callSounds[8]);
+            break;
         default:
             break;
     }
 }
-
-Sound callSounds[2];
