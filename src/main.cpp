@@ -34,6 +34,11 @@ int main() {
     Player::LoadSounds();
 
     // wall initialisation
+    walls.push_back(Wall(-2500, -2500, 50, 5000));
+    walls.push_back(Wall(-2500, -2500, 5000, 50));
+    walls.push_back(Wall(-2450, 2500, 5000, 50));
+    walls.push_back(Wall(2500, -2500, 50, 5000));
+
     walls.push_back(Wall(100, 100, 50, 50));
     walls.push_back(Wall(350, 250, 50, 50));
     //walls.push_back(Wall(0, 100, 50, 50));
@@ -56,14 +61,7 @@ int main() {
 }
 
 void UpdateDrawFrame() {
-    player.Update();
-    for (Wall wall: walls) {
-        player.GetAABB()->ResolveCollision(wall.GetAABB());
-    }
-
-    Vector2 mousePosFromCentre = { GetMousePosition().x - screenWidth / 2, GetMousePosition().y - screenHeight / 2 };
-    mousePosFromCentre = Vector2Scale(mousePosFromCentre, 0.2f);
-    camera.target = Vector2Add(player.GetPos(), mousePosFromCentre);
+    player.Update(&camera, walls);
 
     BeginDrawing();
         ClearBackground(RAYWHITE);

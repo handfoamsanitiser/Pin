@@ -12,7 +12,7 @@ Sound callSounds[9];
 Player::Player(): 
     aabb(AABB(0, 0, PLAYER_COL_SIZE, PLAYER_COL_SIZE)), 
     vel(Vector2 { 0, 0 }), 
-    speed(250.0), 
+    speed(400.0), 
     source(Rectangle { 0, 0, 280, 380 }),
     dest(Rectangle { 0, 0, PLAYER_SIZE, PLAYER_SIZE }) {}
 
@@ -21,7 +21,7 @@ void Player::Reset(float x, float y) {
     aabb.SetPosY(y);
 }
 
-void Player::Update() {
+void Player::Update(Camera2D *camera, std::vector<Wall> walls) {
     vel.x = 0;
     vel.y = 0;
     if (IsKeyDown(KEY_W)) {
@@ -54,14 +54,16 @@ void Player::Update() {
 
     aabb.SetPosX(aabb.GetPos().x + vel.x * GetFrameTime());
     aabb.SetPosY(aabb.GetPos().y + vel.y * GetFrameTime());
-}
 
-void Player::Render() {
-    // Updates sprite position in render method for some reason
-    // very bad, I'll fix it eventually
+    ResolveCollision(walls);
+
     dest.x = aabb.GetPos().x - PLAYER_COL_OFFSET;
     dest.y = aabb.GetPos().y - PLAYER_COL_OFFSET;
 
+    MoveCamera(camera);
+}
+
+void Player::Render() {
     //DrawRectangleV(aabb.GetPos(), aabb.GetSize(), RED);
     DrawTexturePro(texture, source, dest, Vector2 { 0, 0 }, 0, WHITE);
 }
@@ -110,6 +112,18 @@ void Player::UnloadSounds() {
     for (Sound sound: callSounds) {
         UnloadSound(sound);
     }
+}
+
+void Player::ResolveCollision(std::vector<Wall> walls) {
+    for (Wall wall: walls) {
+        aabb.ResolveCollision(wall.GetAABB());
+    }
+}
+
+void Player::MoveCamera(Camera2D *camera) {
+    Vector2 mousePosFromCentre = { GetMousePosition().x - GetScreenWidth() / 2, GetMousePosition().y - GetScreenHeight() / 2 };
+    mousePosFromCentre = Vector2Scale(mousePosFromCentre, 0.2f);
+    camera->target = Vector2Add(Vector2Add(GetPos(), Vector2 { PLAYER_COL_SIZE / 2, PLAYER_COL_SIZE / 2 }), mousePosFromCentre);
 }
 
 void Player::PlayRandomCall() {

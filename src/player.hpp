@@ -1,6 +1,8 @@
 #pragma once
 #include "raylib.h"
 #include "aabb.hpp"
+#include "wall.hpp"
+#include <vector>
 
 extern Sound callSounds[9];
 
@@ -9,7 +11,7 @@ public:
     Player();
 
     void Reset(float x, float y);
-    void Update();
+    void Update(Camera2D *camera, std::vector<Wall> walls);
     void Render();
 
     AABB *GetAABB();
@@ -25,6 +27,8 @@ public:
     static void UnloadSounds();
 
 private:
+    void ResolveCollision(std::vector<Wall> walls);
+    void MoveCamera(Camera2D *camera);
     void PlayRandomCall();
 
     AABB aabb;
