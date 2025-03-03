@@ -1,7 +1,7 @@
+#include <cstdlib>
 #include "player.hpp"
 #include "raylib.h"
 #include "raymath.h"
-#include <cstdlib>
 
 #define PLAYER_SIZE 100.0f
 #define PLAYER_COL_SIZE 80.0f
@@ -12,7 +12,8 @@ Sound callSounds[9];
 Player::Player(): 
     aabb(AABB(0, 0, PLAYER_COL_SIZE, PLAYER_COL_SIZE)), 
     vel(Vector2 { 0, 0 }), 
-    speed(400.0), 
+    speed(400.0),
+    texture(&playerTexture),
     source(Rectangle { 0, 0, 280, 380 }),
     dest(Rectangle { 0, 0, PLAYER_SIZE, PLAYER_SIZE }) {}
 
@@ -65,7 +66,7 @@ void Player::Update(Camera2D *camera, std::vector<Wall> walls) {
 
 void Player::Render() {
     //DrawRectangleV(aabb.GetPos(), aabb.GetSize(), RED);
-    DrawTexturePro(texture, source, dest, Vector2 { 0, 0 }, 0, WHITE);
+    DrawTexturePro(texture->GetTexture(), source, dest, Vector2 { 0, 0 }, 0, WHITE);
 }
 
 AABB *Player::GetAABB() {
@@ -80,12 +81,12 @@ Vector2 Player::GetVel() {
     return vel;
 }
 
-void Player::LoadTextures() {
+/*void Player::LoadTextures() {
     texture = LoadTextureFromImage(LoadImage("resources/textures/pin.png"));
-}
+}*/
 
 Texture2D Player::GetTexture() {
-    return texture;
+    return texture->GetTexture();
 }
 
 Rectangle Player::GetTextureSource() {

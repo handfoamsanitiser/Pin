@@ -1,8 +1,9 @@
 #pragma once
+#include <vector>
 #include "raylib.h"
 #include "aabb.hpp"
 #include "wall.hpp"
-#include <vector>
+#include "textures.hpp"
 
 extern Sound callSounds[9];
 
@@ -18,7 +19,7 @@ public:
     Vector2 GetPos();
     Vector2 GetVel();
 
-    void LoadTextures();
+    //void LoadTextures();
     Texture2D GetTexture();
     Rectangle GetTextureSource();
     Rectangle GetTextureDest();
@@ -35,7 +36,7 @@ private:
     Vector2 vel;
     float speed;
 
-    Texture2D texture;
+    TextureResource *texture;
     Rectangle source;
     Rectangle dest;
 };

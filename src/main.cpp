@@ -1,6 +1,6 @@
+#include <vector>
 #include "raylib.h"
 #include "raymath.h"
-#include <vector>
 #include "constants.hpp"
 #include "textures.hpp"
 #include "player.hpp"
@@ -26,7 +26,6 @@ int main() {
 
     // texture initialisation
     playerTexture.Load("resources/textures/pin.png");
-    player.LoadTextures();
 
     // camera initialisation
     camera.target = player.GetPos();
