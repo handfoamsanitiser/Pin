@@ -2,6 +2,7 @@
 #include "raymath.h"
 #include <vector>
 #include "constants.hpp"
+#include "textures.hpp"
 #include "player.hpp"
 #include "wall.hpp"
 
@@ -15,6 +16,8 @@ Camera2D camera;
 Player player;
 std::vector<Wall> walls;
 
+Music music;
+
 void UpdateDrawFrame();
 
 int main() {
@@ -22,6 +25,7 @@ int main() {
     InitAudioDevice();
 
     // texture initialisation
+    playerTexture.Load("resources/textures/pin.png");
     player.LoadTextures();
 
     // camera initialisation
@@ -31,6 +35,9 @@ int main() {
     camera.zoom = 1.0f;
 
     // audio initialisation
+    music = LoadMusicStream("resources/audio/music.ogg");
+    PlayMusicStream(music);
+
     Player::LoadSounds();
 
     // wall initialisation
@@ -55,12 +62,14 @@ int main() {
     }
     #endif
     
+    UnloadMusicStream(music);
     Player::UnloadSounds();
     CloseAudioDevice();
     CloseWindow();
 }
 
 void UpdateDrawFrame() {
+    UpdateMusicStream(music);
     player.Update(&camera, walls);
 
     BeginDrawing();
