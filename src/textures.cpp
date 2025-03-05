@@ -15,3 +15,7 @@ Texture2D TextureResource::GetTexture() {
 }
 
 TextureResource playerTexture;
+TextureResource kroshTexture;
+TextureResource yozhykTexture;
+TextureResource kopatychTexture;
+TextureResource losyashTexture;

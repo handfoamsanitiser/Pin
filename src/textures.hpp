@@ -15,3 +15,7 @@ private:
 };
 
 extern TextureResource playerTexture;
+extern TextureResource kroshTexture;
+extern TextureResource yozhykTexture;
+extern TextureResource kopatychTexture;
+extern TextureResource losyashTexture;

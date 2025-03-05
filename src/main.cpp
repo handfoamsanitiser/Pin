@@ -26,6 +26,10 @@ int main() {
 
     // texture initialisation
     playerTexture.Load("resources/textures/pin.png");
+    kroshTexture.Load("resources/textures/krosh.png");
+    yozhykTexture.Load("resources/textures/yozhyk.png");
+    kopatychTexture.Load("resources/textures/kopatych.png");
+    losyashTexture.Load("resources/textures/losyash.png");
 
     // camera initialisation
     camera.target = player.GetPos();
