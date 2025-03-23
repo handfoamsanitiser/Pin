@@ -46,7 +46,7 @@ int main() {
     Player::LoadSounds();
 
     // enemy initialisation
-    enemies.push_back(Enemy(Vector2 { 100, 100 }, &kopatychTexture, Rectangle { 100, 100, 1000, 1000 }));
+    enemies.push_back(Enemy(Vector2 { 500, 500 }, &kopatychTexture, Rectangle { 100, 100, 1000, 1000 }));
 
     // wall initialisation
     walls.push_back(Wall(-2500, -2500, 50, 5000));
@@ -78,7 +78,7 @@ int main() {
 
 void UpdateDrawFrame() {
     UpdateMusicStream(music);
-    player.Update(&camera, walls);
+    player.Update(&camera, enemies, walls);
     for (Enemy enemy: enemies) {
         enemy.Update();
     }

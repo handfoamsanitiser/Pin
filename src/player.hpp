@@ -4,15 +4,17 @@
 #include "aabb.hpp"
 #include "wall.hpp"
 #include "textures.hpp"
+#include "enemy.hpp"
 
 extern Sound callSounds[9];
+extern Sound explosionSound;
 
 class Player {
 public:
     Player();
 
     void Reset(float x, float y);
-    void Update(Camera2D *camera, std::vector<Wall> walls);
+    void Update(Camera2D *camera, std::vector<Enemy> enemies, std::vector<Wall> walls);
     void Render();
 
     AABB *GetAABB();
@@ -28,7 +30,8 @@ public:
     static void UnloadSounds();
 
 private:
-    void ResolveCollision(std::vector<Wall> walls);
+    void ResolveWallCollision(std::vector<Wall> walls);
+    void ResolveEnemyCollision(std::vector<Enemy> enemies);
     void MoveCamera(Camera2D *camera);
     void PlayRandomCall();
 

@@ -8,6 +8,7 @@
 #define PLAYER_COL_OFFSET (PLAYER_SIZE - PLAYER_COL_SIZE) / 2.0f
 
 Sound callSounds[9];
+Sound explosionSound;
 
 Player::Player(): 
     aabb(AABB(0, 0, PLAYER_COL_SIZE, PLAYER_COL_SIZE)), 
@@ -22,7 +23,7 @@ void Player::Reset(float x, float y) {
     aabb.SetPosY(y);
 }
 
-void Player::Update(Camera2D *camera, std::vector<Wall> walls) {
+void Player::Update(Camera2D *camera, std::vector<Enemy> enemies, std::vector<Wall> walls) {
     vel.x = 0;
     vel.y = 0;
     if (IsKeyDown(KEY_W)) {
@@ -56,7 +57,8 @@ void Player::Update(Camera2D *camera, std::vector<Wall> walls) {
     aabb.SetPosX(aabb.GetPos().x + vel.x * GetFrameTime());
     aabb.SetPosY(aabb.GetPos().y + vel.y * GetFrameTime());
 
-    ResolveCollision(walls);
+    ResolveWallCollision(walls);
+    ResolveEnemyCollision(enemies);
 
     dest.x = aabb.GetPos().x - PLAYER_COL_OFFSET;
     dest.y = aabb.GetPos().y - PLAYER_COL_OFFSET;
@@ -107,17 +109,28 @@ void Player::LoadSounds() {
     callSounds[6] = LoadSound("resources/audio/pin-6.ogg");
     callSounds[7] = LoadSound("resources/audio/pin-7.ogg");
     callSounds[8] = LoadSound("resources/audio/pin-8.ogg");
+    explosionSound = LoadSound("resources/audio/boom.ogg");
 }
 
 void Player::UnloadSounds() {
     for (Sound sound: callSounds) {
         UnloadSound(sound);
     }
+    UnloadSound(explosionSound);
 }
 
-void Player::ResolveCollision(std::vector<Wall> walls) {
+void Player::ResolveWallCollision(std::vector<Wall> walls) {
     for (Wall wall: walls) {
         aabb.ResolveCollision(wall.GetAABB());
+    }
+}
+
+void Player::ResolveEnemyCollision(std::vector<Enemy> enemies) {
+    for (Enemy enemy: enemies) {
+        if (aabb.CheckCollide(enemy.GetAABB())) {
+            enemy.SetActive(false);
+            PlaySound(explosionSound);
+        }
     }
 }
 

@@ -10,7 +10,9 @@ public:
     void Update();
     void Render();
 
-    AABB *GetAABB();
+    void SetActive(bool active);
+
+    AABB GetAABB();
     Vector2 GetPos();
     Vector2 GetVel();
 
@@ -22,4 +24,6 @@ private:
     TextureResource *texture;
     Rectangle source;
     Rectangle dest;
+
+    bool isActive;
 };
