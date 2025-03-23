@@ -4,6 +4,7 @@
 #include "constants.hpp"
 #include "textures.hpp"
 #include "player.hpp"
+#include "enemy.hpp"
 #include "wall.hpp"
 
 //#define PLATFORM_WEB
@@ -15,13 +16,14 @@ Camera2D camera;
 
 Player player;
 std::vector<Wall> walls;
+std::vector<Enemy> enemies;
 
 Music music;
 
 void UpdateDrawFrame();
 
 int main() {
-    InitWindow(screenWidth, screenHeight, "Explorer");
+    InitWindow(screenWidth, screenHeight, "Пин");
     InitAudioDevice();
 
     // texture initialisation
@@ -42,6 +44,9 @@ int main() {
     PlayMusicStream(music);
 
     Player::LoadSounds();
+
+    // enemy initialisation
+    enemies.push_back(Enemy(Vector2 { 100, 100 }, &kopatychTexture, Rectangle { 100, 100, 1000, 1000 }));
 
     // wall initialisation
     walls.push_back(Wall(-2500, -2500, 50, 5000));
@@ -74,6 +79,9 @@ int main() {
 void UpdateDrawFrame() {
     UpdateMusicStream(music);
     player.Update(&camera, walls);
+    for (Enemy enemy: enemies) {
+        enemy.Update();
+    }
 
     BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -81,6 +89,10 @@ void UpdateDrawFrame() {
         BeginMode2D(camera);
             for (Wall wall: walls) {
                 wall.Render();
+            }
+
+            for (Enemy enemy: enemies) {
+                enemy.Render();
             }
 
             player.Render();

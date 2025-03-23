@@ -5,7 +5,7 @@
 
 class Enemy {
 public:
-    Enemy();
+    Enemy(Vector2 pos, TextureResource *texture, Rectangle source);
 
     void Update();
     void Render();
