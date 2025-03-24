@@ -10,6 +10,7 @@ public:
     void Update();
     void Render();
 
+    bool GetActive();
     void SetActive(bool active);
 
     AABB GetAABB();

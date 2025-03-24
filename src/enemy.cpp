@@ -18,11 +18,16 @@ void Enemy::Update() {
 
 void Enemy::Render() {
     if (!isActive) { return; }
+    DrawRectangleV(aabb.GetPos(), aabb.GetSize(), RED);
     DrawTexturePro(texture->GetTexture(), source, dest, Vector2 { -aabb.GetPos().x, -aabb.GetPos().y }, 0, WHITE);
 }
 
+bool Enemy::GetActive() {
+    return isActive;
+}
+
 void Enemy::SetActive(bool active) {
-    this->isActive = active;
+    isActive = active;
 }
 
 AABB Enemy::GetAABB() {

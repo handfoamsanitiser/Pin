@@ -23,7 +23,7 @@ void Player::Reset(float x, float y) {
     aabb.SetPosY(y);
 }
 
-void Player::Update(Camera2D *camera, std::vector<Enemy> enemies, std::vector<Wall> walls) {
+void Player::Update(Camera2D *camera, std::vector<Enemy> *enemies, std::vector<Wall> walls) {
     vel.x = 0;
     vel.y = 0;
     if (IsKeyDown(KEY_W)) {
@@ -125,10 +125,11 @@ void Player::ResolveWallCollision(std::vector<Wall> walls) {
     }
 }
 
-void Player::ResolveEnemyCollision(std::vector<Enemy> enemies) {
-    for (Enemy enemy: enemies) {
-        if (aabb.CheckCollide(enemy.GetAABB())) {
-            enemy.SetActive(false);
+void Player::ResolveEnemyCollision(std::vector<Enemy> *enemies) {
+    for (int i = 0; i < (int)enemies->size(); i++) {
+        if (aabb.CheckCollide((*enemies)[i].GetAABB())) {
+            if (!(*enemies)[i].GetActive()) { return; }
+            (*enemies)[i].SetActive(false);
             PlaySound(explosionSound);
         }
     }

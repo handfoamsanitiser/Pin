@@ -78,7 +78,7 @@ int main() {
 
 void UpdateDrawFrame() {
     UpdateMusicStream(music);
-    player.Update(&camera, enemies, walls);
+    player.Update(&camera, &enemies, walls);
     for (Enemy enemy: enemies) {
         enemy.Update();
     }
